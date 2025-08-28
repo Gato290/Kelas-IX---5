@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Web Kelas IX-5</title>
+
+  <!-- Font elegan -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      margin: 0;
+      background: linear-gradient(135deg, #1f1c2c, #928dab);
+      min-height: 100vh;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      overflow-x: hidden;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 30px;
+      animation: fadeDown 1s ease;
+      margin-top: 100px; /* Tambahan margin agar tidak tertutup floating tabs */
+    }
+
+    header h1 {
+      font-size: 2rem;
+      color: #fff;
+      text-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
+    }
+
+    /* Floating Tabs - Gaya baru */
+    .floating-tabs {
+      position: fixed;
+      top: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      border-radius: 50px;
+      padding: 12px 20px;
+      box-shadow:
+        0 20px 40px rgba(0, 0, 0, 0.15),
+        0 8px 25px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.5);
+      display: flex;
+      gap: 8px;
+      z-index: 1000;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .floating-tabs:hover {
+      box-shadow:
+        0 25px 50px rgba(0, 0, 0, 0.2),
+        0 12px 30px rgba(0, 0, 0, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.6);
+      transform: translateX(-50%) translateY(-2px);
+    }
+
+    .tab-btn {
+      background: transparent;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 40px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #64748b;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .tab-btn::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: linear-gradient(135deg, #4f46e5, #7c3aed);
+      opacity: 0;
+      border-radius: 40px;
+      transition: opacity 0.3s ease;
+      z-index: -1;
+    }
+
+    .tab-btn:hover {
+      color: #4f46e5;
+      transform: translateY(-1px);
+    }
+
+    .tab-btn:hover::before {
+      opacity: 0.1;
+    }
+
+    .tab-btn.active {
+      background: linear-gradient(135deg, #4f46e5, #7c3aed);
+      color: white;
+      box-shadow: 0 8px 20px rgba(79, 70, 229, 0.3);
+    }
+
+    .tab-btn.active:hover {
+      transform: translateY(-1px) scale(1.02);
+      box-shadow: 0 12px 25px rgba(79, 70, 229, 0.4);
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateX(-50%) translateY(0);
+      }
+      50% {
+        transform: translateX(-50%) translateY(-5px);
+      }
+    }
+
+    .tab-content {
+      display: none;
+      width: 100%;
+      max-width: 900px;
+      animation: fadeIn 0.5s ease;
+    }
+    .tab-content.active {
+      display: block;
+    }
+
+    @keyframes fadeDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 20px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    }
+
+    /* --- Slider Foto --- */
+    .slider {
+      position: relative;
+      max-width: 700px;
+      margin: 20px auto;
+      overflow: hidden;
+      border-radius: 15px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+      animation: fadeUp 1.5s ease;
+    }
+    .slides {
+      display: flex;
+      transition: transform 0.6s ease-in-out;
+    }
+    .slide {
+      min-width: 100%;
+    }
+    .slide img {
+      width: 100%;
+      height: 380px;
+      object-fit: cover;
+      border-radius: 15px;
+      user-select: none;
+      transition: transform 0.5s ease;
+    }
+    .slide img:hover {
+      transform: scale(1.05);
+    }
+
+    /* tombol slider */
+    .slider-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255, 255, 255, 0.1);
+      border: 2px solid #fff;
+      width: 55px;
+      height: 55px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(6px);
+      user-select: none;
+    }
+    .slider-btn:hover {
+      background: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 0 20px #fff, 0 0 40px #0ff;
+      transform: translateY(-50%) scale(1.1);
+    }
+    .slider-btn:active {
+      box-shadow: 0 0 15px #ff0, 0 0 30px #ff0;
+      transform: translateY(-50%) scale(0.95);
+    }
+    .prev {
+      left: 15px;
+    }
+    .next {
+      right: 15px;
+    }
+    .slider-btn svg {
+      width: 22px;
+      height: 22px;
+      fill: #fff;
+    }
+
+    @media (max-width: 768px) {
+      .slide img {
+        height: 260px;
+      }
+    }
+
+    /* Grid siswa */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+    .student-card {
+      text-align: center;
+      background: linear-gradient(135deg, #3a7bd5, #00d2ff);
+      border-radius: 16px;
+      padding: 15px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      color: #fff;
+    }
+    .thumb-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin: 0 auto 10px;
+    }
+    .thumb {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+
+    .announce-card {
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      color: #222;
+      border-radius: 14px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    /* --- Welcome Screen --- */
+    .welcome-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #1f1c2c, #928dab);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      color: #fff;
+      z-index: 9999;
+      animation: fadeOut 1s ease forwards;
+      animation-delay: 2.5s;
+    }
+    .welcome-text {
+      font-size: 2.2rem;
+      font-weight: 700;
+      text-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+      opacity: 0;
+      animation: fadeInUp 1s ease forwards;
+    }
+    .welcome-sub {
+      font-size: 1rem;
+      margin-top: 10px;
+      opacity: 0;
+      animation: fadeInUp 1s ease forwards;
+      animation-delay: 0.5s;
+    }
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    @keyframes fadeOut {
+      to {
+        opacity: 0;
+        visibility: hidden;
+      }
+    }
+
+    footer {
+      margin-top: 30px;
+      font-size: 0.9rem;
+      opacity: 0.85;
+      animation: fadeUp 1.5s ease;
+    }
+
+    /* Tabel Jadwal */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      color: #fff;
+      margin-top: 15px;
+    }
+    th,
+    td {
+      border: 1px solid #fff;
+      padding: 8px 12px;
+      text-align: center;
+    }
+    th {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    /* Gallery Styles - Baru */
+    .gallery-container {
+      padding: 20px;
+      margin-top: 20px;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .gallery-item {
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      opacity: 0;
+      transform: translateY(50px);
+      cursor: pointer;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .gallery-item.animate {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .gallery-item:nth-child(1) { transition-delay: 0.1s; }
+    .gallery-item:nth-child(2) { transition-delay: 0.2s; }
+    .gallery-item:nth-child(3) { transition-delay: 0.3s; }
+    .gallery-item:nth-child(4) { transition-delay: 0.4s; }
+    .gallery-item:nth-child(5) { transition-delay: 0.5s; }
+    .gallery-item:nth-child(6) { transition-delay: 0.6s; }
+
+    .gallery-item:hover {
+      transform: translateY(-10px) scale(1.03);
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+    }
+
+    .gallery-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+
+    .gallery-item:hover .gallery-image {
+      transform: scale(1.1);
+    }
+
+    .gallery-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+      padding: 15px;
+      color: white;
+      transform: translateY(100%);
+      transition: transform 0.3s ease;
+    }
+
+    .gallery-item:hover .gallery-overlay {
+      transform: translateY(0);
+    }
+
+    .gallery-title {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+
+    .gallery-desc {
+      font-size: 12px;
+      opacity: 0.9;
+    }
+
+    /* Responsive untuk floating tabs */
+    @media (max-width: 768px) {
+      .floating-tabs {
+        top: 20px;
+        padding: 10px;
+        border-radius: 40px;
+        width: 90%;
+        max-width: 400px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .tab-btn {
+        padding: 10px 16px;
+        font-size: 12px;
+        flex: 1;
+        min-width: 80px;
+      }
+
+      header {
+        margin-top: 80px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .floating-tabs {
+        top: 15px;
+        padding: 8px;
+        border-radius: 35px;
+      }
+
+      .tab-btn {
+        padding: 8px 12px;
+        font-size: 11px;
+        min-width: 70px;
+      }
+
+      .gallery-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+      }
+
+      .gallery-image {
+        height: 180px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Welcome Screen -->
+  <div class="welcome-screen">
+    <div class="welcome-text">Selamat Datang</div>
+    <div class="welcome-sub">Website Kelas IX-5</div>
+  </div>
+
+  <header>
+    <h1>Web Kelas IX-5</h1>
+  </header>
+
+  <!-- Floating Tabs -->
+  <div class="floating-tabs" role="tablist" aria-label="Navigasi Tab Melayang Tengah">
+    <button class="tab-btn active" role="tab" aria-selected="true" tabindex="0" data-tab="home">🏠 Home</button>
+    <button class="tab-btn" role="tab" aria-selected="false" tabindex="-1" data-tab="jadwal">📅 Jadwal</button>
+    <button class="tab-btn" role="tab" aria-selected="false" tabindex="-1" data-tab="siswa">🧑‍🎓 Siswa</button>
+    <button class="tab-btn" role="tab" aria-selected="false" tabindex="-1" data-tab="pengumuman">📢 Pengumuman</button>
+  </div>
+
+  <!-- Home -->
+  <div id="home" class="tab-content active">
+    <div class="card">
+      <h2>Selamat Datang di Website Kelas IX-5 🎉</h2>
+      <p>
+        Di sini kamu bisa lihat <b>jadwal pelajaran</b>, data <b>siswa</b>, dan
+        <b>pengumuman terbaru</b>.
+      </p>
+    </div>
+
+    <!-- Slider -->
+    <div class="slider">
+      <div class="slides">
+        <div class="slide">
+          <img src="https://picsum.photos/id/1011/900/600" alt="Foto 1" />
+        </div>
+        <div class="slide">
+          <img src="https://picsum.photos/id/1015/900/600" alt="Foto 2" />
+        </div>
+        <div class="slide">
+          <img src="https://picsum.photos/id/1016/900/600" alt="Foto 3" />
+        </div>
+      </div>
+      <button class="slider-btn prev" onclick="moveSlide(-1)">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
+        </svg>
+      </button>
+      <button class="slider-btn next" onclick="moveSlide(1)">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path d="M8.59 16.59 13.17 12 8.59 7.41 10 6l6 6-6 6z" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Gallery -->
+    <div class="card gallery-container">
+      <h2>Galeri Kelas IX-5 ✨</h2>
+      <div class="gallery-grid">
+        <div class="gallery-item">
+          <img src="https://picsum.photos/id/237/600/400" alt="Anjing lucu" class="gallery-image">
+          <div class="gallery-overlay">
+            <h3 class="gallery-title">Momen Kebersamaan</h3>
+            <p class="gallery-desc">Foto kegiatan belajar mengajar di kelas.</p>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="https://picsum.photos/id/238/600/400" alt="Bunga mekar" class="gallery-image">
+          <div class="gallery-overlay">
+            <h3 class="gallery-title">Acara Sekolah</h3>
+            <p class="gallery-desc">Dokumentasi acara penting di sekolah.</p>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="https://picsum.photos/id/239/600/400" alt="Pemandangan kota" class="gallery-image">
+          <div class="gallery-overlay">
+            <h3 class="gallery-title">Studi Tur</h3>
+            <p class="gallery-desc">Kenangan dari perjalanan studi tur.</p>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="https://picsum.photos/id/240/600/400" alt="Pegunungan" class="gallery-image">
+          <div class="gallery-overlay">
+            <h3 class="gallery-title">Kegiatan Ekstrakurikuler</h3>
+            <p class="gallery-desc">Potret semangat di luar jam pelajaran.</p>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="https://picsum.photos/id/241/600/400" alt="Danau" class="gallery-image">
+          <div class="gallery-overlay">
+            <h3 class="gallery-title">Perayaan Hari Besar</h3>
+            <p class="gallery-desc">Meriahnya perayaan di sekolah.</p>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="https://picsum.photos/id/242/600/400" alt="Jalanan kota" class="gallery-image">
+          <div class="gallery-overlay">
+            <h3 class="gallery-title">Suasana Kelas</h3>
+            <p class="gallery-desc">Canda tawa dan semangat belajar.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Jadwal -->
+  <div id="jadwal" class="tab-content">
+    <div class="card">
+      <h2>Jadwal Pelajaran</h2>
+
+      <h3 class="day-label">Senin</h3>
+      <table>
+        <thead><tr><th>JAM</th><th>MATA PELAJARAN</th><th>KETERANGAN</th></tr></thead>
+        <tbody>
+          <tr class="break-row"><td>07.00 - 07.45</td><td>-</td><td>Upacara Bendera</td></tr>
+          <tr class="break-row"><td>07.45 - 08.00</td><td>-</td><td>-</td></tr>
+          <tr><td>08.00 - 08.40</td><td>B.Indonesia - RD</td><td>-</td></tr>
+          <tr><td>08.40 - 09.20</td><td>B.Indonesia - RD</td><td>-</td></tr>
+          <tr class="break-row"><td>09.20 - 09.35</td><td>-</td><td>🍴 Istirahat</td></tr>
+          <tr><td>09.35 - 10.15</td><td>B.Inggris - AH</td><td>-</td></tr>
+          <tr><td>10.15 - 10.55</td><td>B.Inggris - AH</td><td>-</td></tr>
+          <tr><td>10.55 - 11.35</td><td>Pjok - DD</td><td>-</td></tr>
+          <tr class="break-row"><td>11.35 - 11.50</td><td>-</td><td>🍴 Istirahat</td></tr>
+          <tr><td>11.50 - 12.30</td><td>Pjok - DD</td><td>-</td></tr>
+          <tr><td>12.30 - 13.10</td><td>Pjok - DD</td><td>-</td></tr>
+        </tbody>
+      </table>
+
+      <h3 class="day-label">Selasa</h3>
+      <table>
+        <thead><tr><th>JAM</th><th>MATA PELAJARAN</th><th>KETERANGAN</th></tr></thead>
+        <tbody>
+          <tr class="break-row"><td>07.00 - 07.30</td><td>-</td><td>Teras Kita</td></tr>
+          <tr class="break-row"><td>07.30 - 07.45</td><td>-</td><td>-</td></tr>
+          <tr><td>07.45 - 08.25</td><td>SBK - SM</td><td>-</td></tr>
+          <tr><td>08.25 - 09.05</td><td>SBK - SM</td><td>-</td></tr>
+          <tr class="break-row"><td>09.05 - 09.20</td><td>-</td><td>🍴 Istirahat</td></tr>
+          <tr><td>09.20 - 10.00</td><td>SBK - SMH</td><td>-</td></tr>
+          <tr class="break-row"><td>10.00 - 10.10</td><td>-</td><td>Membaca Senyap</td></tr>
+          <tr><td>10.10 - 10.50</td><td>B.Indonesia - RD</td><td>-</td></tr>
+          <tr><td>10.50 - 11.30</td><td>B.Indonesia - RD</td><td>-</td></tr>
+          <tr class="break-row"><td>11.30 - 11.45</td><td>-</td><td>🍴 Istirahat</td></tr>
+          <tr><td>11.45 - 12.25</td><td>TIK - TB</td><td>-</td></tr>
+          <tr><td>12.25 - 13.05</td><td>TIK - TB</td><td>-</td></tr>
+        </tbody>
+      </table>
+
+      <h3 class="day-label">Rabu</h3>
+      <table>
+        <thead><tr><th>JAM</th><th>MATA PELAJARAN</th><th>KETERANGAN</th></tr></thead>
+        <tbody>
+          <tr class="break-row"><td>07.00 - 07.30</td><td>-</td><td>BREAKTO</td></tr>
+          <tr class="break-row"><td>07.30 - 07.45</td><td>-</td><td>-</td></tr>
+          <tr><td>07.45 - 08.25</td><td>AGAMA - SO:SK</td><td>-</td></tr>
+          <tr><td>08.25 - 09.05</td><td>AGAMA - SO:SK</td><td>-</td></tr>
+          <tr class="break-row"><td>09.05 - 09.20</td><td>-</td><td>🍴 Istirahat</td></tr>
+          <tr><td>09.20 - 10.00</td><td>AGAMA - SO:SK</td><td>-</td></tr>
+          <tr class="break-row"><td>10.00 - 10.10</td><td>-</td><td>Membaca Senyap</td></tr>
+          <tr><td>10.10 - 10.50</td><td>Matematika - NZ</td><td>-</td></tr>
+          <tr><td>10.50 - 11.30</td><td>Matematika - NZ</td><td>-</td></tr>
+          <tr class="break-row"><td>11.30 - 11.45</td><td>-</td><td>🍴 Istirahat</td></tr>
+          <tr><td>11.45 - 12.25</td><td>PKN - MR</td><td>-</td></tr>
+          <tr><td>12.25 - 13.05</td><td>IPA - KB</td><td>-</td></tr>
+        </tbody>
+      </table>
+
+      <h3 class="day-label">Kamis</h3>
+      <table>
+        <thead><tr><th>JAM</th><th>MATA PELAJARAN</th><th>KETERANGAN</th></tr></thead>
+        <tbody>
+          <tr class="break-row"><td>07.00 - 07.30</td><td>-</td><td>SETIA</td></tr>
+          <tr class="break-row"><td>07.30 - 07.45</td><td>-</td><td>-</td></tr>
+          <tr><td>07.45 - 08.25</td><td>AGAMA - SO:SK</td><td>-</td></tr>
+          <tr><td>08.25 - 09.05</td><td>AGAMA - SO:SK</td><td>-</td></tr>
+          <tr class="break-row"><td>09.05 - 09.20</td><td>-</td><td>🍴 Istirahat</td></tr>
+          <tr><td>09.20 - 10.00</td><td>AGAMA - SO:SK</td><td>-</td></tr>
+          <tr class="break-row"><td>10.00 - 10.10</td><td>-</td><td>Membaca Senyap</td></tr>
+          <tr><td>10.10 - 10.50</td><td>Matematika - NZ</td><td>-</td></tr>
+          <tr><td>10.50 - 11.30</td><td>Matematika - NZ</td><td>-</td></tr>
+          <tr class="break-row"><td>11.30 - 11.45</td><td>-</td><td>🍴 Istirahat</td></tr>
+          <tr><td>11.45 - 12.25</td><td>PKN - MR</td><td>-</td></tr>
+          <tr><td>12.25 - 13.05</td><td>IPA - KB</td><td>-</td></tr>
+        </tbody>
+      </table>
+
+      <h3 class="day-label">Jumat</h3>
+      <table>
+        <thead><tr><th>JAM</th><th>MATA PELAJARAN</th><th>KETERANGAN</th></tr></thead>
+        <tbody>
+          <tr class="break-row"><td>07.00 - 07.30</td><td>-</td><td>RETORASI</td></tr>
+          <tr class="break-row"><td>07.30 - 07.45</td><td>-</td><td>-</td></tr>
+          <tr><td>07.45 - 08.25</td><td>IPS - NP</td><td>-</td></tr>
+          <tr><td>08.25 - 09.05</td><td>IPS - NP</td><td>-</td></tr>
+          <tr class="break-row"><td>09.05 - 09.20</td><td>-</td><td>🍴 Istirahat</td></tr>
+          <tr><td>09.20 - 10.00</td><td>IPA - KB</td><td>-</td></tr>
+          <tr><td>10.00 - 10.40</td><td>IPA - KB</td><td>-</td></tr>
+          <tr><td>10.40 - 11.20</td><td>PKN - MR</td><td>-</td></tr>
+        </tbody>
+      </table>
+
+      <h3 class="day-label">Sabtu</h3>
+      <table>
+        <thead><tr><th>JAM</th><th>MATA PELAJARAN</th><th>KETERANGAN</th></tr></thead>
+        <tbody>
+          <tr class="break-row"><td>07.00 - 07.30</td><td>-</td><td>PRAMUKA</td></tr>
+          <tr class="break-row"><td>07.30 - 07.45</td><td>-</td><td>-</td></tr>
+          <tr><td>07.45 - 08.25</td><td>IPA - KB</td><td>-</td></tr>
+          <tr><td>08.25 - 09.05</td><td>IPA - KB</td><td>-</td></tr>
+          <tr class="break-row"><td>09.05 - 09.20</td><td>-</td><td>🍴 Istirahat</td></tr>
+          <tr><td>09.20 - 10.00</td><td>Matematika - NZ</td><td>-</td></tr>
+          <tr><td>10.00 - 10.40</td><td>Matematika - NZ</td><td>-</td></tr>
+          <tr><td>10.40 - 11.20</td><td>Matematika - NZ</td><td>-</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Siswa -->
+  <div id="siswa" class="tab-content">
+    <div class="card">
+      <h2>Data Siswa</h2>
+      <div class="grid">
+        <div class="student-card">
+          <div class="thumb-wrapper">
+            <img class="thumb" src="https://i.ibb.co/ZVLW6fV/gojo.jpg" alt="Bella Anjani" />
+          </div>
+          <h3>Bella Anjani</h3>
+          <small>NIS: 2025002</small>
+        </div>
+        <div class="student-card">
+          <div class="thumb-wrapper">
+            <img class="thumb" src="https://i.ibb.co/7vD7Q6F/student2.jpg" alt="Dimas Pratama" />
+          </div>
+          <h3>Dimas Pratama</h3>
+          <small>NIS: 2025003</small>
+        </div>
+        <div class="student-card">
+          <div class="thumb-wrapper">
+            <img class="thumb" src="https://i.ibb.co/2kXqZqZ/student3.jpg" alt="Sari Lestari" />
+          </div>
+          <h3>Sari Lestari</h3>
+          <small>NIS: 2025004</small>
+        </div>
+        <div class="student-card">
+          <div class="thumb-wrapper">
+            <img class="thumb" src="https://i.ibb.co/0J7Q0QZ/student4.jpg" alt="Rizky Ahmad" />
+          </div>
+          <h3>Rizky Ahmad</h3>
+          <small>NIS: 2025005</small>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pengumuman -->
+  <div id="pengumuman" class="tab-content">
+    <div class="card">
+      <h2>Pengumuman</h2>
+      <div class="announce-card">
+        <div class="date">28 Juli 2025</div>
+        <h4>Rapat OSIS</h4>
+        <p>Pengurus OSIS harap hadir Jumat, 1 Agustus 2025 pukul 15.30 WITA di ruang OSIS.</p>
+      </div>
+      <div class="announce-card">
+        <div class="date">15 Agustus 2025</div>
+        <h4>Ujian Tengah Semester</h4>
+        <p>Ujian Tengah Semester akan dilaksanakan mulai Senin, 18 Agustus 2025 sampai Jumat, 22 Agustus 2025.</p>
+      </div>
+      <div class="announce-card">
+        <div class="date">5 September 2025</div>
+        <h4>Libur Nasional</h4>
+        <p>Libur nasional pada hari Jumat, 6 September 2025 dalam rangka Hari Kemerdekaan.</p>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>Credit : Roy</p>
+  </footer>
+
+  <script>
+    // Welcome Screen: Memulai animasi saat halaman dimuat
+    window.addEventListener('load', () => {
+      const welcomeScreen = document.querySelector('.welcome-screen');
+      if (welcomeScreen) {
+        welcomeScreen.style.animationPlayState = 'running';
+      }
+    });
+
+    // Tabs: Mengatur fungsi untuk pergantian tab
+    const tabButtons = document.querySelectorAll(".tab-btn");
+    const tabContents = document.querySelectorAll(".tab-content");
+    const galleryItems = document.querySelectorAll('.gallery-item');
+
+    function showTab(tabId) {
+      tabContents.forEach(content => {
+        content.classList.remove('active');
+      });
+      const targetTab = document.getElementById(tabId);
+      if (targetTab) {
+        targetTab.classList.add('active');
+        // Trigger animasi gallery jika tab home
+        if (tabId === 'home') {
+          setTimeout(() => {
+            animateGallery();
+          }, 100);
+        } else {
+          // Reset gallery animation when switching tabs
+          galleryItems.forEach(item => {
+            item.classList.remove('animate');
+          });
+        }
+      }
+    }
+
+    tabButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        tabButtons.forEach((b) => {
+          b.classList.remove("active");
+          b.setAttribute('aria-selected', 'false');
+          b.setAttribute('tabindex', '-1');
+        });
+        btn.classList.add("active");
+        btn.setAttribute('aria-selected', 'true');
+        btn.setAttribute('tabindex', '0');
+        showTab(btn.dataset.tab);
+      });
+    });
+
+    // Keyboard navigation for floating tabs
+    document.querySelector('.floating-tabs').addEventListener('keydown', e => {
+      const activeTab = document.querySelector('.tab-btn.active');
+      const tabsArray = Array.from(tabButtons);
+      let newIndex;
+
+      if (e.key === 'ArrowRight') {
+        newIndex = (tabsArray.indexOf(activeTab) + 1) % tabsArray.length;
+        tabsArray[newIndex].click();
+        tabsArray[newIndex].focus();
+        e.preventDefault();
+      } else if (e.key === 'ArrowLeft') {
+        newIndex = (tabsArray.indexOf(activeTab) - 1 + tabsArray.length) % tabsArray.length;
+        tabsArray[newIndex].click();
+        tabsArray[newIndex].focus();
+        e.preventDefault();
+      }
+    });
+
+    // Slider: Mengatur fungsi untuk pergantian slide
+    let slideIndex = 0;
+    const slides = document.querySelector(".slides");
+    const totalSlides = document.querySelectorAll(".slide").length;
+
+    function moveSlide(n) {
+      slideIndex += n;
+      if (slideIndex >= totalSlides) {
+        slideIndex = 0;
+      }
+      if (slideIndex < 0) {
+        slideIndex = totalSlides - 1;
+      }
+      slides.style.transform = `translateX(${-slideIndex * 100}%)`;
+    }
+
+    // Auto slide (opsional, nonaktifkan jika tidak diperlukan)
+    // setInterval(() => {
+    //   moveSlide(1);
+    // }, 5000);
+
+    // Gallery Animation: Mengatur animasi untuk galeri
+    function animateGallery() {
+      galleryItems.forEach(item => {
+        item.classList.add('animate');
+      });
+    }
+
+    // Trigger gallery animation on initial load if home tab is active
+    window.addEventListener('load', () => {
+      if (document.getElementById('home').classList.contains('active')) {
+        setTimeout(animateGallery, 500);
+      }
+    });
+
+    // Efek hover tambahan untuk gallery
+    galleryItems.forEach(item => {
+      item.addEventListener('mouseenter', function() {
+        this.style.zIndex = '10';
+      });
+      
+      item.addEventListener('mouseleave', function() {
+        this.style.zIndex = '1';
+      });
+    });
+  </script>
+</body>
+</html>
