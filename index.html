@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Official website for Class IX-5, featuring schedules, student data, and announcements." />
-  <meta name="keywords" content="Class IX-5, school, schedule, students, announcements" />
+  <meta name="description" content="Official website for Class IX-5, featuring schedules, student data, announcements, and social media links." />
+  <meta name="keywords" content="Class IX-5, school, schedule, students, announcements, social media" />
   <title>Web Kelas IX-5</title>
 
   <!-- Font elegan -->
@@ -43,7 +43,8 @@
       left: 50%;
       transform: translateX(-50%);
       background: rgba(255, 255, 255, 0.95);
-      -webkit-animation: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      backdrop-filter: blur(20px);
       border-radius: 50px;
       padding: 12px 20px;
       box-shadow:
@@ -162,18 +163,15 @@
       }
     }
 
-.card {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 16px;
-  padding: 20px;
-  margin-bottom: 20px;
-
-  /* Blur effect */
-  -webkit-backdrop-filter: blur(12px); /* Safari/iOS */
-  backdrop-filter: blur(12px);         /* Chrome, Edge, Firefox */
-
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
-}
+    .card {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 20px;
+      -webkit-backdrop-filter: blur(12px);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    }
 
     .card.welcome-card {
       text-align: center;
@@ -195,49 +193,40 @@
     .slide {
       min-width: 100%;
     }
-.slide img {
-  width: 100%;
-  height: 300px;
-  object-fit: cover;
-  border-radius: 15px;
-
-  -webkit-user-select: none; /* Safari/iOS */
-  user-select: none;          /* Chrome, Edge, Firefox */
-
-  transition: transform 0.5s ease;
-}
-
-.slide img:hover {
-  transform: scale(1.05);
-}
+    .slide img {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      border-radius: 15px;
+      -webkit-user-select: none;
+      user-select: none;
+      transition: transform 0.5s ease;
+    }
 
     .slide img:hover {
       transform: scale(1.05);
     }
 
-.slider-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(255, 255, 255, 0.1);
-  border: 2px solid #fff;
-  width: 55px;
-  height: 55px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 10px 25px rgba(255, 255, 255, 0.4);
-
-  /* Safari/iOS prefix dulu */
-  -webkit-backdrop-filter: blur(5px); /* Safari/iOS */
-  backdrop-filter: blur(5px);         /* Chrome, Edge, Firefox */
-
-  -webkit-user-select: none; /* Safari/iOS */
-  user-select: none;         /* Chrome, Edge, Firefox */
-}
+    .slider-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255, 255, 255, 0.1);
+      border: 2px solid #fff;
+      width: 55px;
+      height: 55px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 25px rgba(255, 255, 255, 0.4);
+      -webkit-backdrop-filter: blur(5px);
+      backdrop-filter: blur(5px);
+      -webkit-user-select: none;
+      user-select: none;
+    }
 
     .slider-btn:hover {
       background: rgba(255, 255, 255, 0.2);
@@ -357,6 +346,7 @@
       font-size: 0.9rem;
       opacity: 0.85;
       animation: fadeUp 1.5s ease;
+      text-align: center;
     }
 
     table {
@@ -459,6 +449,95 @@
       opacity: 0.9;
     }
 
+    /* Social Media Buttons Styles */
+    .buttons-container {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      max-width: 300px;
+      margin: 20px auto;
+    }
+
+    .social-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 18px 30px;
+      border-radius: 15px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .social-button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .social-button:hover::before {
+      left: 100%;
+    }
+
+    .social-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .social-button:active {
+      transform: translateY(-1px);
+    }
+
+    .instagram-btn {
+      background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+      color: white;
+    }
+
+    .tiktok-btn {
+      background: linear-gradient(45deg, #000000 0%, #000000 50%, #00f2ea 50%, #00f2ea 100%);
+      color: white;
+    }
+
+    .tiktok-btn::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 0;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.1);
+      transition: all 0.3s ease;
+      transform: translateX(-50%);
+    }
+
+    .tiktok-btn:hover::after {
+      width: 100%;
+    }
+
+    .icon {
+      margin-right: 12px;
+      font-size: 1.4rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .button-text {
+      flex: 1;
+      text-align: center;
+    }
+
     @media (max-width: 768px) {
       .floating-tabs {
         top: 20px;
@@ -507,6 +586,15 @@
       .gallery-image {
         height: 180px;
       }
+
+      .buttons-container {
+        max-width: 250px;
+      }
+
+      .social-button {
+        padding: 15px 25px;
+        font-size: 1rem;
+      }
     }
   </style>
 </head>
@@ -537,6 +625,24 @@
         Di sini kamu bisa lihat <b>jadwal pelajaran</b>, data <b>siswa</b>, dan
         <b>pengumuman terbaru</b>.
       </p>
+      <div class="buttons-container">
+        <a href="https://www.instagram.com" class="social-button instagram-btn" target="_blank">
+          <span class="icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" fill="currentColor"/>
+            </svg>
+          </span>
+          <span class="button-text">Instagram</span>
+        </a>
+        <a href="https://www.tiktok.com" class="social-button tiktok-btn" target="_blank">
+          <span class="icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M19.589 6.686a4.793 4.793 0 0 1-3.77-4.245V2h-3.445v13.672a2.896 2.896 0 0 1-5.201 1.743l-.002-.001.002.001a2.895 2.895 0 0 1 3.183-4.51v-3.5a6.329 6.329 0 0 0-5.394 10.692 6.33 6.33 0 0 0 10.857-4.424V8.687a8.182 8.182 0 0 0 4.773 1.526V6.79a4.831 4.831 0 0 1-1.003-.104z" fill="currentColor"/>
+            </svg>
+          </span>
+          <span class="button-text">TikTok</span>
+        </a>
+      </div>
     </div>
 
     <!-- Slider -->
@@ -779,7 +885,7 @@
       </div>
       <div class="announce-card">
         <div class="date">00 -00- 0000</div>
-        <h4>Penguman 3</h4>
+        <h4>Pengumuman 3</h4>
         <p>........................</p>
       </div>
     </div>
@@ -922,6 +1028,34 @@
         document.body.appendChild(modal);
         modal.addEventListener('click', () => modal.remove());
       });
+    });
+
+    // Social Buttons Animation
+    document.querySelectorAll('.social-button').forEach(button => {
+      button.addEventListener('click', function(e) {
+        this.style.transform = 'scale(0.95)';
+        setTimeout(() => {
+          this.style.transform = '';
+        }, 150);
+      });
+    });
+
+    // Add keyboard navigation for social buttons
+    document.querySelector('.buttons-container').addEventListener('keydown', function(e) {
+      const buttons = document.querySelectorAll('.social-button');
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        const currentFocus = document.activeElement;
+        let index = Array.from(buttons).indexOf(currentFocus);
+        
+        if (e.key === 'ArrowDown') {
+          index = (index + 1) % buttons.length;
+        } else {
+          index = (index - 1 + buttons.length) % buttons.length;
+        }
+        
+        buttons[index].focus();
+      }
     });
   </script>
 </body>
