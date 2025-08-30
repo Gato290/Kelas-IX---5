@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Official website for Class IX-5, featuring schedules, student data, and announcements." />
+  <meta name="keywords" content="Class IX-5, school, schedule, students, announcements" />
   <title>Web Kelas IX-5</title>
 
   <!-- Font elegan -->
@@ -26,7 +28,7 @@
       text-align: center;
       margin-bottom: 30px;
       animation: fadeDown 1s ease;
-      margin-top: 100px; /* Tambahan margin agar tidak tertutup floating tabs */
+      margin-top: 100px;
     }
 
     header h1 {
@@ -35,14 +37,13 @@
       text-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
     }
 
-    /* Floating Tabs - Gaya baru */
     .floating-tabs {
       position: fixed;
       top: 30px;
       left: 50%;
       transform: translateX(-50%);
       background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(20px);
+      -webkit-animation: blur(20px);
       border-radius: 50px;
       padding: 12px 20px;
       box-shadow:
@@ -161,16 +162,23 @@
       }
     }
 
-    .card {
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 16px;
-      padding: 20px;
-      margin-bottom: 20px;
-      backdrop-filter: blur(12px);
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+.card {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 20px;
+
+  /* Blur effect */
+  -webkit-backdrop-filter: blur(12px); /* Safari/iOS */
+  backdrop-filter: blur(12px);         /* Chrome, Edge, Firefox */
+
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+}
+
+    .card.welcome-card {
+      text-align: center;
     }
 
-    /* --- Slider Foto --- */
     .slider {
       position: relative;
       max-width: 700px;
@@ -187,37 +195,50 @@
     .slide {
       min-width: 100%;
     }
-    .slide img {
-      width: 100%;
-      height: 380px;
-      object-fit: cover;
-      border-radius: 15px;
-      user-select: none;
-      transition: transform 0.5s ease;
-    }
+.slide img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 15px;
+
+  -webkit-user-select: none; /* Safari/iOS */
+  user-select: none;          /* Chrome, Edge, Firefox */
+
+  transition: transform 0.5s ease;
+}
+
+.slide img:hover {
+  transform: scale(1.05);
+}
+
     .slide img:hover {
       transform: scale(1.05);
     }
 
-    /* tombol slider */
-    .slider-btn {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background: rgba(255, 255, 255, 0.1);
-      border: 2px solid #fff;
-      width: 55px;
-      height: 55px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
-      backdrop-filter: blur(6px);
-      user-select: none;
-    }
+.slider-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid #fff;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 25px rgba(255, 255, 255, 0.4);
+
+  /* Safari/iOS prefix dulu */
+  -webkit-backdrop-filter: blur(5px); /* Safari/iOS */
+  backdrop-filter: blur(5px);         /* Chrome, Edge, Firefox */
+
+  -webkit-user-select: none; /* Safari/iOS */
+  user-select: none;         /* Chrome, Edge, Firefox */
+}
+
     .slider-btn:hover {
       background: rgba(255, 255, 255, 0.2);
       box-shadow: 0 0 20px #fff, 0 0 40px #0ff;
@@ -245,7 +266,6 @@
       }
     }
 
-    /* Grid siswa */
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -285,7 +305,6 @@
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
     }
 
-    /* --- Welcome Screen --- */
     .welcome-screen {
       position: fixed;
       top: 0;
@@ -300,7 +319,7 @@
       color: #fff;
       z-index: 9999;
       animation: fadeOut 1s ease forwards;
-      animation-delay: 2.5s;
+      animation-delay: 4s;
     }
     .welcome-text {
       font-size: 2.2rem;
@@ -340,7 +359,6 @@
       animation: fadeUp 1.5s ease;
     }
 
-    /* Tabel Jadwal */
     table {
       width: 100%;
       border-collapse: collapse;
@@ -357,7 +375,10 @@
       background: rgba(255, 255, 255, 0.2);
     }
 
-    /* Gallery Styles - Baru */
+    .break-row {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
     .gallery-container {
       padding: 20px;
       margin-top: 20px;
@@ -438,7 +459,6 @@
       opacity: 0.9;
     }
 
-    /* Responsive untuk floating tabs */
     @media (max-width: 768px) {
       .floating-tabs {
         top: 20px;
@@ -459,6 +479,10 @@
 
       header {
         margin-top: 80px;
+      }
+
+      .slide img {
+        height: 260px;
       }
     }
 
@@ -507,7 +531,7 @@
 
   <!-- Home -->
   <div id="home" class="tab-content active">
-    <div class="card">
+    <div class="card welcome-card">
       <h2>Selamat Datang di Website Kelas IX-5 🎉</h2>
       <p>
         Di sini kamu bisa lihat <b>jadwal pelajaran</b>, data <b>siswa</b>, dan
@@ -519,21 +543,21 @@
     <div class="slider">
       <div class="slides">
         <div class="slide">
-          <img src="https://picsum.photos/id/1011/900/600" alt="Foto 1" />
+          <img src="https://picsum.photos/id/1011/900/600" alt="Foto 1" loading="lazy" width="900" height="600" onerror="this.src='https://via.placeholder.com/900x600'" />
         </div>
         <div class="slide">
-          <img src="https://picsum.photos/id/1015/900/600" alt="Foto 2" />
+          <img src="https://picsum.photos/id/1015/900/600" alt="Foto 2" loading="lazy" width="900" height="600" onerror="this.src='https://via.placeholder.com/900x600'" />
         </div>
         <div class="slide">
-          <img src="https://picsum.photos/id/1016/900/600" alt="Foto 3" />
+          <img src="https://picsum.photos/id/1016/900/600" alt="Foto 3" loading="lazy" width="900" height="600" onerror="this.src='https://via.placeholder.com/900x600'" />
         </div>
       </div>
-      <button class="slider-btn prev" onclick="moveSlide(-1)">
+      <button class="slider-btn prev" aria-label="Previous slide" onclick="moveSlide(-1)">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
           <path d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
         </svg>
       </button>
-      <button class="slider-btn next" onclick="moveSlide(1)">
+      <button class="slider-btn next" aria-label="Next slide" onclick="moveSlide(1)">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
           <path d="M8.59 16.59 13.17 12 8.59 7.41 10 6l6 6-6 6z" />
         </svg>
@@ -545,42 +569,42 @@
       <h2>Galeri Kelas IX-5 ✨</h2>
       <div class="gallery-grid">
         <div class="gallery-item">
-          <img src="https://picsum.photos/id/237/600/400" alt="Anjing lucu" class="gallery-image">
+          <img src="https://picsum.photos/id/237/600/400" alt="Momen Kebersamaan" class="gallery-image" loading="lazy" width="600" height="400" onerror="this.src='https://via.placeholder.com/600x400'" />
           <div class="gallery-overlay">
             <h3 class="gallery-title">Momen Kebersamaan</h3>
             <p class="gallery-desc">Foto kegiatan belajar mengajar di kelas.</p>
           </div>
         </div>
         <div class="gallery-item">
-          <img src="https://picsum.photos/id/238/600/400" alt="Bunga mekar" class="gallery-image">
+          <img src="https://picsum.photos/id/238/600/400" alt="Acara Sekolah" class="gallery-image" loading="lazy" width="600" height="400" onerror="this.src='https://via.placeholder.com/600x400'" />
           <div class="gallery-overlay">
             <h3 class="gallery-title">Acara Sekolah</h3>
             <p class="gallery-desc">Dokumentasi acara penting di sekolah.</p>
           </div>
         </div>
         <div class="gallery-item">
-          <img src="https://picsum.photos/id/239/600/400" alt="Pemandangan kota" class="gallery-image">
+          <img src="https://picsum.photos/id/239/600/400" alt="Studi Tur" class="gallery-image" loading="lazy" width="600" height="400" onerror="this.src='https://via.placeholder.com/600x400'" />
           <div class="gallery-overlay">
             <h3 class="gallery-title">Studi Tur</h3>
             <p class="gallery-desc">Kenangan dari perjalanan studi tur.</p>
           </div>
         </div>
         <div class="gallery-item">
-          <img src="https://picsum.photos/id/240/600/400" alt="Pegunungan" class="gallery-image">
+          <img src="https://picsum.photos/id/240/600/400" alt="Kegiatan Ekstrakurikuler" class="gallery-image" loading="lazy" width="600" height="400" onerror="this.src='https://via.placeholder.com/600x400'" />
           <div class="gallery-overlay">
             <h3 class="gallery-title">Kegiatan Ekstrakurikuler</h3>
             <p class="gallery-desc">Potret semangat di luar jam pelajaran.</p>
           </div>
         </div>
         <div class="gallery-item">
-          <img src="https://picsum.photos/id/241/600/400" alt="Danau" class="gallery-image">
+          <img src="https://picsum.photos/id/241/600/400" alt="Perayaan Hari Besar" class="gallery-image" loading="lazy" width="600" height="400" onerror="this.src='https://via.placeholder.com/600x400'" />
           <div class="gallery-overlay">
             <h3 class="gallery-title">Perayaan Hari Besar</h3>
             <p class="gallery-desc">Meriahnya perayaan di sekolah.</p>
           </div>
         </div>
         <div class="gallery-item">
-          <img src="https://picsum.photos/id/242/600/400" alt="Jalanan kota" class="gallery-image">
+          <img src="https://picsum.photos/id/242/600/400" alt="Suasana Kelas" class="gallery-image" loading="lazy" width="600" height="400" onerror="this.src='https://via.placeholder.com/600x400'" />
           <div class="gallery-overlay">
             <h3 class="gallery-title">Suasana Kelas</h3>
             <p class="gallery-desc">Canda tawa dan semangat belajar.</p>
@@ -709,31 +733,31 @@
       <div class="grid">
         <div class="student-card">
           <div class="thumb-wrapper">
-            <img class="thumb" src="https://i.ibb.co/ZVLW6fV/gojo.jpg" alt="Bella Anjani" />
+            <img class="thumb" src="https://i.ibb.co/ZVLW6fV/gojo.jpg" alt="Bella Anjani" loading="lazy" width="100" height="100" onerror="this.src='https://via.placeholder.com/100'" />
           </div>
-          <h3>Bella Anjani</h3>
-          <small>NIS: 2025002</small>
+          <h3>Nama Siswa</h3>
+          <small>Example</small>
         </div>
         <div class="student-card">
           <div class="thumb-wrapper">
-            <img class="thumb" src="https://i.ibb.co/7vD7Q6F/student2.jpg" alt="Dimas Pratama" />
+            <img class="thumb" src="https://i.ibb.co/7vD7Q6F/student2.jpg" alt="Dimas Pratama" loading="lazy" width="100" height="100" onerror="this.src='https://via.placeholder.com/100'" />
           </div>
-          <h3>Dimas Pratama</h3>
-          <small>NIS: 2025003</small>
+          <h3>Nama Siswa</h3>
+          <small>Example</small>
         </div>
         <div class="student-card">
           <div class="thumb-wrapper">
-            <img class="thumb" src="https://i.ibb.co/2kXqZqZ/student3.jpg" alt="Sari Lestari" />
+            <img class="thumb" src="https://i.ibb.co/2kXqZqZ/student3.jpg" alt="Sari Lestari" loading="lazy" width="100" height="100" onerror="this.src='https://via.placeholder.com/100'" />
           </div>
-          <h3>Sari Lestari</h3>
-          <small>NIS: 2025004</small>
+          <h3>Nama Siswa</h3>
+          <small>Example</small>
         </div>
         <div class="student-card">
           <div class="thumb-wrapper">
-            <img class="thumb" src="https://i.ibb.co/0J7Q0QZ/student4.jpg" alt="Rizky Ahmad" />
+            <img class="thumb" src="https://i.ibb.co/0J7Q0QZ/student4.jpg" alt="Rizky Ahmad" loading="lazy" width="100" height="100" onerror="this.src='https://via.placeholder.com/100'" />
           </div>
-          <h3>Rizky Ahmad</h3>
-          <small>NIS: 2025005</small>
+          <h3>Nama Siswa</h3>
+          <small>Example</small>
         </div>
       </div>
     </div>
@@ -744,25 +768,25 @@
     <div class="card">
       <h2>Pengumuman</h2>
       <div class="announce-card">
-        <div class="date">28 Juli 2025</div>
-        <h4>Rapat OSIS</h4>
-        <p>Pengurus OSIS harap hadir Jumat, 1 Agustus 2025 pukul 15.30 WITA di ruang OSIS.</p>
+        <div class="date">00 -00- 0000</div>
+        <h4>Pengumuman 1</h4>
+        <p>.......................</p>
       </div>
       <div class="announce-card">
-        <div class="date">15 Agustus 2025</div>
-        <h4>Ujian Tengah Semester</h4>
-        <p>Ujian Tengah Semester akan dilaksanakan mulai Senin, 18 Agustus 2025 sampai Jumat, 22 Agustus 2025.</p>
+        <div class="date">00 -00- 0000</div>
+        <h4>Pengumuman 2</h4>
+        <p>.............................</p>
       </div>
       <div class="announce-card">
-        <div class="date">5 September 2025</div>
-        <h4>Libur Nasional</h4>
-        <p>Libur nasional pada hari Jumat, 6 September 2025 dalam rangka Hari Kemerdekaan.</p>
+        <div class="date">00 -00- 0000</div>
+        <h4>Penguman 3</h4>
+        <p>........................</p>
       </div>
     </div>
   </div>
 
   <footer>
-    <p>Credit : Roy</p>
+    <p>| Credit: Roy |</p>
   </footer>
 
   <script>
@@ -786,13 +810,11 @@
       const targetTab = document.getElementById(tabId);
       if (targetTab) {
         targetTab.classList.add('active');
-        // Trigger animasi gallery jika tab home
         if (tabId === 'home') {
           setTimeout(() => {
             animateGallery();
           }, 100);
         } else {
-          // Reset gallery animation when switching tabs
           galleryItems.forEach(item => {
             item.classList.remove('animate');
           });
@@ -849,10 +871,11 @@
       slides.style.transform = `translateX(${-slideIndex * 100}%)`;
     }
 
-    // Auto slide (opsional, nonaktifkan jika tidak diperlukan)
-    // setInterval(() => {
-    //   moveSlide(1);
-    // }, 5000);
+    // Auto slide with pause on hover
+    let autoSlide = setInterval(() => moveSlide(1), 5000);
+    const slider = document.querySelector('.slider');
+    slider.addEventListener('mouseenter', () => clearInterval(autoSlide));
+    slider.addEventListener('mouseleave', () => autoSlide = setInterval(() => moveSlide(1), 5000));
 
     // Gallery Animation: Mengatur animasi untuk galeri
     function animateGallery() {
@@ -868,7 +891,7 @@
       }
     });
 
-    // Efek hover tambahan untuk gallery
+    // Efek hover dan lightbox untuk gallery
     galleryItems.forEach(item => {
       item.addEventListener('mouseenter', function() {
         this.style.zIndex = '10';
@@ -876,6 +899,28 @@
       
       item.addEventListener('mouseleave', function() {
         this.style.zIndex = '1';
+      });
+
+      item.addEventListener('click', () => {
+        const imgSrc = item.querySelector('.gallery-image').src;
+        const modal = document.createElement('div');
+        modal.style.position = 'fixed';
+        modal.style.top = '0';
+        modal.style.left = '0';
+        modal.style.width = '100%';
+        modal.style.height = '100%';
+        modal.style.background = 'rgba(0,0,0,0.8)';
+        modal.style.display = 'flex';
+        modal.style.justifyContent = 'center';
+        modal.style.alignItems = 'center';
+        modal.style.zIndex = '10000';
+        const img = document.createElement('img');
+        img.src = imgSrc;
+        img.style.maxWidth = '90%';
+        img.style.maxHeight = '90%';
+        modal.appendChild(img);
+        document.body.appendChild(modal);
+        modal.addEventListener('click', () => modal.remove());
       });
     });
   </script>
